@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCraft Juniors - Tech Education for Young Minds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            margin-top: 70px;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .slide-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .slide-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInUp 0.8s ease;
+        }
+
+        .slide-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background: white;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .slider-arrow.prev {
+            left: 20px;
+        }
+
+        .slider-arrow.next {
+            right: 20px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 2rem;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102,126,234,0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        /* Courses Section */
+        .courses {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .course-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: scale(1.02);
+        }
+
+        .course-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 2rem;
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            transition: background 0.3s;
+        }
+
+        .contact-item:hover {
+            background: #e9ecef;
+        }
+
+        .whatsapp-button {
+            background: #25D366;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37,211,102,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #95a5a6;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .slide-content h1 {
+                font-size: 2rem;
+            }
+
+            .slide-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-slider {
+                height: 500px;
+            }
+
+            .slider-arrow {
+                padding: 0.5rem 1rem;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                🚀 CodeCraft Juniors
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('home')">Home</a></li>
+                <li><a onclick="scrollToSection('courses')">Courses</a></li>
+                <li><a onclick="scrollToSection('about')">About</a></li>
+                <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+    <section id="home" class="hero-slider">
+        <div class="slide slide-1 active">
+            <div class="slide-content">
+                <h1>🌟 Empowering Young Minds</h1>
+                <p>Interactive online tech education for kids aged 6-18 years</p>
+                <a onclick="scrollToSection('contact')" class="cta-button">Start Learning Today</a>
+            </div>
+        </div>
+        
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <h1>🎮 Learn Through Fun</h1>
+                <p>Build games, apps, and websites with expert guidance</p>
+                <a onclick="scrollToSection('courses')" class="cta-button">Explore Courses</a>
+            </div>
+        </div>
+        
+        <div class="slide slide-3">
+            <div class="slide-content">
+                <h1>🚀 Shape the Future</h1>
+                <p>Master coding, AI, robotics and become tomorrow's innovator</p>
+                <a onclick="scrollToSection('contact')" class="cta-button">Join Us Now</a>
+            </div>
+        </div>
+
+        <button class="slider-arrow prev" onclick="changeSlide(-1)">‹</button>
+        <button class="slider-arrow next" onclick="changeSlide(1)">›</button>
+        
+        <div class="slider-nav">
+            <span class="slider-dot active" onclick="goToSlide(0)"></span>
+            <span class="slider-dot" onclick="goToSlide(1)"></span>
+            <span class="slider-dot" onclick="goToSlide(2)"></span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose CodeCraft Juniors?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Interactive Learning</h3>
+                    <p>Engaging online sessions with hands-on coding projects that make learning fun and memorable</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Expert Instructors</h3>
+                    <p>Experienced educators who understand how young minds learn and grow in technology</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Age-Appropriate Curriculum</h3>
+                    <p>Carefully designed courses tailored for different age groups and skill levels</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Project-Based Learning</h3>
+                    <p>Build real projects and develop practical skills that last a lifetime</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Small Class Sizes</h3>
+                    <p>Personalized attention with small groups ensuring every child thrives</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Flexible Scheduling</h3>
+                    <p>Learn at your own pace with convenient online classes that fit your schedule</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <h2 class="section-title">Our Course Offerings</h2>
+            
+            <div class="course-card">
+                <h3>🎨 Creative Coding for Kids</h3>
+                <span class="age-badge">Ages 6-10</span>
+                <p>Introduction to programming through visual block-based coding, game design, and animated storytelling. Perfect for young beginners!</p>
+            </div>
+
+            <div class="course-card">
+                <h3>🎮 Game Development</h3>
+                <span class="age-badge">Ages 11-14</span>
+                <p>Learn to create your own video games using platforms like Scratch, Roblox, and Unity. Turn your imagination into reality!</p>
+            </div>
+
+            <div class="course-card">
+                <h3>🌐 Web Development</h3>
+                <span class="age-badge">Ages 13-16</span>
+                <p>Master HTML, CSS, and JavaScript to build stunning websites and web applications from scratch.</p>
+            </div>
+
+            <div class="course-card">
+                <h3>🐍 Python Programming</h3>
+                <span class="age-badge">Ages 12-16</span>
+                <p>Learn one of the world's most popular programming languages through fun projects and real-world applications.</p>
+            </div>
+
+            <div class="course-card">
+                <h3>📱 App Development</h3>
+                <span class="age-badge">Ages 14-18</span>
+                <p>Create mobile applications for Android and iOS. Bring your app ideas to life!</p>
+            </div>
+
+            <div class="course-card">
+                <h3>🤖 AI & Robotics</h3>
+                <span class="age-badge">Ages 13-18</span>
+                <p>Explore artificial intelligence, machine learning, and robotics. Shape the future of technology!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About CodeCraft Juniors</h2>
+            <div class="about-content">
+                <p>At CodeCraft Juniors, we believe every child has the potential to become a creator in the digital age. Founded with a passion for technology education, we're dedicated to making coding and tech skills accessible, engaging, and fun for young learners.</p>
+                
+                <p>Our mission is to empower the next generation with the skills they need to thrive in an increasingly digital world. Through our carefully crafted curriculum, experienced instructors, and interactive online platform, we transform complex concepts into exciting learning adventures.</p>
+                
+                <p>We understand that each child learns differently, which is why our courses are designed to be flexible, engaging, and personalized. Whether your child is taking their first steps into coding or ready to build advanced applications, we provide the guidance and support they need to succeed.</p>
+                
+                <p>Join thousands of parents who trust CodeCraft Juniors to nurture their children's curiosity, creativity, and confidence in technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p>Ready to start your child's coding journey? We'd love to hear from you!</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-item">
+                        <span style="font-size: 1.5rem;">📧</span>
+                        <div>
+                            <strong>Email:</strong><br>
+                            info@codecraftjuniors.com
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span style="font-size: 1.5rem;">📞</span>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            +1 (555) 123-4567
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://wa.me/15551234567" target="_blank" class="whatsapp-button">
+                    <span style="font-size: 1.5rem;">💬</span>
+                    Chat with us on WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CodeCraft Juniors</h3>
+                <p>Empowering young minds through technology education since 2020.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a onclick="scrollToSection('home')" style="color: #95a5a6; text-decoration: none; cursor: pointer;">Home</a></p>
+                <p><a onclick="scrollToSection('courses')" style="color: #95a5a6; text-decoration: none; cursor: pointer;">Courses</a></p>
+                <p><a onclick="scrollToSection('about')" style="color: #95a5a6; text-decoration: none; cursor: pointer;">About Us</a></p>
+                <p><a onclick="scrollToSection('contact')" style="color: #95a5a6; text-decoration: none; cursor: pointer;">Contact</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/codecraftjuniors" target="_blank" class="social-icon" title="Facebook">f</a>
+                    <a href="https://youtube.com/@codecraftjuniors" target="_blank" class="social-icon" title="YouTube">▶</a>
+                    <a href="https://instagram.com/codecraftjuniors" target="_blank" class="social-icon" title="Instagram">📷</a>
+                    <a href="https://twitter.com/codecraftjrs" target="_blank" class="social-icon" title="Twitter">🐦</a>
+                    <a href="https://linkedin.com/company/codecraftjuniors" target="_blank" class="social-icon" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 CodeCraft Juniors. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let slideInterval;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+            resetInterval();
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+            resetInterval();
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        // Auto-advance slides
+        slideInterval = setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+</body>
+</html>
