@@ -66,6 +66,15 @@
             opacity: 0.8;
         }
 
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
         /* Hero Slider */
         .hero-slider {
             margin-top: 70px;
@@ -406,30 +415,119 @@
         }
 
         @media (max-width: 768px) {
+            nav {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
             .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                gap: 0;
+                padding: 2rem 0;
+                transition: left 0.3s ease;
+                z-index: 999;
             }
 
-            .slide-content h1 {
-                font-size: 2rem;
+            .nav-links.active {
+                left: 0;
             }
 
-            .slide-content p {
-                font-size: 1.1rem;
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
 
-            .section-title {
-                font-size: 2rem;
+            .nav-links a {
+                display: block;
+                font-size: 1.2rem;
             }
 
             .hero-slider {
-                height: 500px;
+                height: 400px;
+                margin-top: 70px;
+            }
+
+            .slide-content {
+                padding: 1rem;
+            }
+
+            .slide-content h1 {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+
+            .slide-content p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
             }
 
             .slider-arrow {
                 padding: 0.5rem 1rem;
                 font-size: 1.5rem;
+            }
+
+            .slider-arrow.prev {
+                left: 10px;
+            }
+
+            .slider-arrow.next {
+                right: 10px;
+            }
+
+            .slider-nav {
+                bottom: 15px;
+            }
+
+            .features {
+                padding: 60px 1.5rem;
+            }
+
+            .courses {
+                padding: 60px 1.5rem;
+            }
+
+            .about {
+                padding: 60px 1.5rem;
+            }
+
+            .contact {
+                padding: 60px 1.5rem;
+            }
+
+            .course-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -441,11 +539,12 @@
             <div class="logo">
                 🚀 CodeCraft Juniors
             </div>
-            <ul class="nav-links">
-                <li><a onclick="scrollToSection('home')">Home</a></li>
-                <li><a onclick="scrollToSection('courses')">Courses</a></li>
-                <li><a onclick="scrollToSection('about')">About</a></li>
-                <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a onclick="scrollToSection('home'); closeMenu()">Home</a></li>
+                <li><a onclick="scrollToSection('courses'); closeMenu()">Courses</a></li>
+                <li><a onclick="scrollToSection('about'); closeMenu()">About</a></li>
+                <li><a onclick="scrollToSection('contact'); closeMenu()">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -582,7 +681,7 @@
                 <h3>🍃 Spring Boot Framework</h3>
                 <span class="age-badge">Ages 16-18</span>
                 <p>Advanced Java with Spring Boot! Create professional REST APIs and enterprise applications used by top companies.</p>
-            </div> 
+            </div>
         </div>
     </section>
 
@@ -667,6 +766,17 @@
     </footer>
 
     <script>
+        // Mobile menu functionality
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
         // Slider functionality
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
